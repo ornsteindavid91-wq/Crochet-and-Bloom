@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loop & Bloom — Handmade Crochet</title>
+<style>
+:root{--cream:#fffaf5;--ink:#332a27;--rose:#d98282;--rose2:#f4d2cf;--sage:#a9b9a2;--white:#fff;--shadow:0 12px 35px rgba(60,40,30,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:var(--cream)}
+a{text-decoration:none;color:inherit}.top{background:var(--ink);color:#fff;text-align:center;padding:9px;font-size:13px}
+nav{height:78px;background:rgba(255,250,245,.94);display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;z-index:10;border-bottom:1px solid #eee1d9}
+.logo{font-family:Georgia,serif;font-size:28px;font-weight:700}.logo span{color:var(--rose)}
+.navlinks{display:flex;gap:28px;font-size:14px}.navlinks a:hover{color:var(--rose)}
+.cartbtn{border:0;background:var(--ink);color:#fff;padding:11px 16px;border-radius:99px;cursor:pointer}.count{background:var(--rose);padding:2px 7px;border-radius:20px;margin-left:4px}
+.hero{padding:75px 6% 85px;display:grid;grid-template-columns:1.05fr .95fr;gap:45px;align-items:center;background:linear-gradient(135deg,#fff8f1,#f8e9e5)}
+.hero h1{font-family:Georgia,serif;font-size:clamp(48px,7vw,82px);line-height:.95;margin:10px 0 22px}.hero h1 em{color:var(--rose);font-weight:400}
+.hero p{font-size:18px;line-height:1.7;max-width:550px;color:#655a55}.cta{display:inline-block;background:var(--rose);color:#fff;padding:14px 22px;border-radius:30px;margin-top:15px;font-weight:700;box-shadow:var(--shadow)}
+.hero-art{min-height:430px;border-radius:38% 62% 55% 45% / 45% 40% 60% 55%;background:#e7c2bb;display:flex;align-items:center;justify-content:center;font-size:170px;box-shadow:var(--shadow)}
+section{padding:70px 6%}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px}.section-head h2{font:700 42px Georgia,serif;margin:0}.section-head p{color:#776b66}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}.filter{border:1px solid #dfd2ca;background:#fff;padding:9px 15px;border-radius:30px;cursor:pointer}.filter.active,.filter:hover{background:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}.card{background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 5px 22px rgba(50,35,25,.06);transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pic{height:245px;display:flex;align-items:center;justify-content:center;font-size:92px;background:#f3dfda}.info{padding:18px}.tag{font-size:11px;color:#987a71;text-transform:uppercase;letter-spacing:1px}.info h3{margin:7px 0;font:700 21px Georgia,serif}.row{display:flex;justify-content:space-between;align-items:center}.price{font-weight:800}.add{border:0;background:var(--rose2);color:var(--ink);border-radius:50%;width:40px;height:40px;font-size:22px;cursor:pointer}.add:hover{background:var(--rose);color:#fff}
+.about{background:#eee8df;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}.about h2{font:700 45px Georgia,serif}.about p{line-height:1.8;color:#625852}.perks{display:grid;grid-template-columns:1fr 1fr;gap:15px}.perk{background:#fff;padding:22px;border-radius:18px}.perk b{display:block;margin-bottom:6px}.newsletter{text-align:center;background:#d9e1d4}.newsletter h2{font:700 40px Georgia,serif;margin:0 0 12px}.form{display:flex;max-width:500px;margin:25px auto 0;background:#fff;border-radius:99px;padding:5px}.form input{border:0;outline:0;flex:1;padding:12px 16px;background:transparent}.form button{border:0;background:var(--ink);color:#fff;border-radius:99px;padding:12px 18px}
+footer{padding:35px 6%;display:flex;justify-content:space-between;border-top:1px solid #e7ddd6;font-size:13px;color:#756b66}
+.drawer{position:fixed;right:-430px;top:0;width:min(430px,100%);height:100vh;background:#fff;z-index:30;box-shadow:-15px 0 40px rgba(0,0,0,.15);transition:.3s;padding:25px;display:flex;flex-direction:column}.drawer.open{right:0}.drawer h2{font:700 30px Georgia,serif}.close{border:0;background:#f1e7e1;border-radius:50%;width:38px;height:38px;cursor:pointer}.cartitems{flex:1;overflow:auto}.cartitem{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #eee}.mini{width:65px;height:65px;border-radius:12px;background:#f3dfda;display:grid;place-items:center;font-size:30px}.qty button{border:1px solid #ddd;background:#fff;border-radius:6px;width:26px;height:26px}.checkout{border:0;background:var(--rose);color:#fff;padding:15px;border-radius:12px;font-weight:800;cursor:pointer}.empty{text-align:center;color:#887c76;margin-top:80px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:20}.overlay.show{display:block}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.hero,.about{grid-template-columns:1fr}.hero-art{min-height:300px}.navlinks{display:none}}
+@media(max-width:550px){.grid{grid-template-columns:1fr}.hero{padding-top:45px}.section-head{display:block}.section-head h2{font-size:35px}.perks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="top">Free shipping on orders over $50 · Handmade with love ♡</div>
+<nav>
+  <a class="logo" href="#">Loop <span>&</span> Bloom</a>
+  <div class="navlinks"><a href="#shop">Shop</a><a href="#about">Our Story</a><a href="#contact">Contact</a></div>
+  <button class="cartbtn" onclick="toggleCart()">Bag <span class="count" id="count">0</span></button>
+</nav>
+
+<header class="hero">
+  <div>
+    <div class="tag">Handmade crochet studio</div>
+    <h1>Little things,<br><em>made slowly.</em></h1>
+    <p>Cozy, colorful crochet pieces made by hand for your home, your wardrobe, and the people you love.</p>
+    <a class="cta" href="#shop">Explore the collection →</a>
+  </div>
+  <div class="hero-art">🧶</div>
+</header>
+
+<section id="shop">
+  <div class="section-head"><div><div class="tag">The collection</div><h2>Shop handmade</h2></div><p>Small batches. Big personality.</p></div>
+  <div class="filters">
+    <button class="filter active" data-filter="All">All</button>
+    <button class="filter" data-filter="Home">Home</button>
+    <button class="filter" data-filter="Accessories">Accessories</button>
+    <button class="filter" data-filter="Gifts">Gifts</button>
+  </div>
+  <div class="grid" id="products"></div>
+</section>
+
+<section class="about" id="about">
+  <div><div class="tag">Our story</div><h2>Made by hand, meant to be kept.</h2><p>Loop & Bloom is a tiny crochet studio focused on thoughtful, practical pieces. Every item is stitched in small batches, so each one has its own little character.</p><p>Choose a ready-made piece or get in touch about a custom color or design.</p></div>
+  <div class="perks">
+    <div class="perk">🧵 <b>Handmade</b><span>Each piece is carefully stitched.</span></div>
+    <div class="perk">🌿 <b>Thoughtful</b><span>Durable materials and timeless designs.</span></div>
+    <div class="perk">🎁 <b>Gift-ready</b><span>Beautifully packed for someone special.</span></div>
+    <div class="perk">💌 <b>Custom orders</b><span>Ask about personalized pieces.</span></div>
+  </div>
+</section>
+
+<section class="newsletter" id="contact">
+  <h2>Stay in the loop</h2><p>New drops, cozy inspiration, and occasional discounts.</p>
+  <form class="form" onsubmit="subscribe(event)"><input required type="email" placeholder="Your email address"><button>Join</button></form>
+</section>
+
+<footer><div>© 2026 Loop & Bloom</div><div>Instagram · Pinterest · hello@loopandbloom.com</div></footer>
+
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+<aside class="drawer" id="drawer">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2>Your bag</h2><button class="close" onclick="toggleCart()">×</button></div>
+  <div class="cartitems" id="cartitems"></div>
+  <div id="cartbottom"></div>
+</aside>
+
+<script>
+const products=[
+ {id:1,name:"Daisy Coaster Set",cat:"Home",price:18,emoji:"🌼"},
+ {id:2,name:"Cloud Cardigan",cat:"Accessories",price:72,emoji:"☁️"},
+ {id:3,name:"Strawberry Pouch",cat:"Accessories",price:26,emoji:"🍓"},
+ {id:4,name:"Mushroom Plushie",cat:"Gifts",price:34,emoji:"🍄"},
+ {id:5,name:"Checker Tote",cat:"Accessories",price:48,emoji:"👜"},
+ {id:6,name:"Flower Garland",cat:"Home",price:32,emoji:"🌸"},
+ {id:7,name:"Cozy Mug Cozy",cat:"Home",price:16,emoji:"☕"},
+ {id:8,name:"Mini Bear",cat:"Gifts",price:24,emoji:"🧸"}
+];
+let cart=JSON.parse(localStorage.getItem("crochetCart")||"{}"), filter="All";
+function money(n){return "$"+n.toFixed(2)}
+function render(){
+ const box=document.getElementById("products");
+ box.innerHTML=products.filter(p=>filter==="All"||p.cat===filter).map(p=>`<article class="card"><div class="pic">${p.emoji}</div><div class="info"><div class="tag">${p.cat}</div><h3>${p.name}</h3><div class="row"><span class="price">${money(p.price)}</span><button class="add" onclick="add(${p.id})">+</button></div></div></article>`).join("");
+ document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===filter));
+}
+document.querySelectorAll(".filter").forEach(b=>b.onclick=()=>{filter=b.dataset.filter;render()});
+function save(){localStorage.setItem("crochetCart",JSON.stringify(cart));renderCart()}
+function add(id){cart[id]=(cart[id]||0)+1;save();toggleCart(true)}
+function change(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];save()}
+function renderCart(){
+ const entries=Object.entries(cart);
+ const count=entries.reduce((s,[id,q])=>s+q,0);document.getElementById("count").textContent=count;
+ const box=document.getElementById("cartitems"), bottom=document.getElementById("cartbottom");
+ if(!entries.length){box.innerHTML='<div class="empty">Your bag is waiting for something handmade ♡</div>';bottom.innerHTML="";return}
+ let total=0;
+ box.innerHTML=entries.map(([id,q])=>{const p=products.find(x=>x.id==id);total+=p.price*q;return `<div class="cartitem"><div class="mini">${p.emoji}</div><div style="flex:1"><b>${p.name}</b><div>${money(p.price)}</div><div class="qty"><button onclick="change(${p.id},-1)">−</button> ${q} <button onclick="change(${p.id},1)">+</button></div></div></div>`}).join("");
+ bottom.innerHTML=`<div style="display:flex;justify-content:space-between;padding:18px 0;font-size:18px"><b>Total</b><b>${money(total)}</b></div><button class="checkout" style="width:100%" onclick="checkout()">Proceed to checkout</button>`;
+}
+function toggleCart(force){const d=document.getElementById("drawer"),o=document.getElementById("overlay");const open=force===true?true:!d.classList.contains("open");d.classList.toggle("open",open);o.classList.toggle("show",open)}
+function checkout(){alert("Demo checkout: connect Stripe, PayPal, or your preferred payment provider here.")}
+function subscribe(e){e.preventDefault();alert("Thanks for joining the loop!")}
+render();renderCart();
+</script>
+</body>
+</html>
